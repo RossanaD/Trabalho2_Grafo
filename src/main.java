@@ -42,7 +42,7 @@ public class main {
 
 		util.Realizadijkstra(g);
 		
-		util.teste(g);
+		util.CriaCaminhosVirtuais(g);
 		
 		//Matriz impares
 		util.ImprimeMatrizImpares();
