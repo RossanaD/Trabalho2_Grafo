@@ -1,21 +1,14 @@
+
+/*Christian Trisotto Alegri
+ *Rossana Ariadna Schumann Dullius*/
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.Set;
 
 public class Util {
-	public String VISITED = "VISITED";
-
-	public static String UNVISITED = "UNVISITED";
-
-	public String RETURN = "RETURN";
-
-	public String CROSS = "CROSS";
 
 	public List<String> stack = new ArrayList<String>();
 
@@ -29,14 +22,7 @@ public class Util {
 
 	public List<String> verticesDijkstraList;
 
-	public void resetStatus(Grafo grafo) {
-		for (int i = 0; i < grafo.arestas().size(); i++) {
-			grafo.arestas().get(i).setStatus(UNVISITED);
-		}
-		for (int i = 0; i < grafo.vertices().size(); i++) {
-			grafo.vertices().get(i).setStatus(UNVISITED);
-		}
-	}
+	public int CustoTotal = 0;
 
 	public void dijkstra(Vertice init) {
 		init.setDist(0);
@@ -70,7 +56,36 @@ public class Util {
 		}
 		matrizImpar.add(str);
 	}
-	 
+
+	public String Fleury(Vertice origem, Grafo f) {
+		boolean controle = false;
+		Aresta omega = origem.getArestas().get(0);
+		String caminho = "Caminho:\n";
+		Vertice v = omega.getV1();
+		while (f.numArestas() != 0) {
+			int idx = 0;
+			while (v.getArestas().get(idx).getV1() == null)
+				idx++;
+
+			omega = v.getArestas().get(idx);
+			CustoTotal += omega.getPeso();
+			if (omega.getV1().getName() == 'A' && controle == true) {
+				caminho += omega.getV2().getName() + "->" + omega.getV1().getName();
+				break;
+			}
+			controle = true;
+			if ((omega.getV2().getName() == v.getName()) && v.getName() != 'A') {
+				caminho += omega.getV2().getName() + "->" + omega.getV1().getName() + "\n";
+				v = omega.getV1();
+			} else {
+				caminho += omega.getV1().getName() + "->" + omega.getV2().getName() + "\n";
+				v = omega.getV2();
+			}
+			f.removeAresta(omega);
+		}
+		return caminho;
+	}
+	
 	public void ImprimeMatrizImpares() {
 		System.out.println("Matriz de Dijkstra dos vértices impares");
 		for (String string : matrizImpar) {
@@ -136,7 +151,10 @@ public class Util {
 		return matriz;
 	}
 
-	 
+	public int getCusto() {
+		return CustoTotal;
+	}
+
 	public void CriaCaminhosVirtuais(Grafo g) {
 		ArrayList<String> pares = new ArrayList<String>();
 		for (Map.Entry<Character, List<String>> vertices : listaAux.entrySet()) {
@@ -156,58 +174,67 @@ public class Util {
 					if ((verticeChar1 != verticeChar3) && (verticeChar1 != verticeChar4)
 							&& (verticeChar2 != verticeChar3) && (verticeChar2 != verticeChar4)) {
 						paresSemRepeticao.add(pares.get(i));
-						paresSemRepeticao.add(pares.get(j));						
+						paresSemRepeticao.add(pares.get(j));
 						break;
 					}
 
 				}
 			}
 		}
-		
+
 		Vertice vertice1;
 		Vertice vertice2;
 		Vertice vertice3;
 		Vertice vertice4;
-		
+
 		char v1 = paresSemRepeticao.get(0).charAt(0);
 		char v2 = paresSemRepeticao.get(0).charAt(2);
-		int valorPar = Integer.parseInt(paresSemRepeticao.get(0).substring(paresSemRepeticao.get(0).lastIndexOf(':')+1));
+		int valorPar = Integer
+				.parseInt(paresSemRepeticao.get(0).substring(paresSemRepeticao.get(0).lastIndexOf(':') + 1));
 		char v3 = paresSemRepeticao.get(1).charAt(0);
 		char v4 = paresSemRepeticao.get(1).charAt(2);
-		int valorPar1 = Integer.parseInt(paresSemRepeticao.get(1).substring(paresSemRepeticao.get(1).lastIndexOf(':')+1));
+		int valorPar1 = Integer
+				.parseInt(paresSemRepeticao.get(1).substring(paresSemRepeticao.get(1).lastIndexOf(':') + 1));
 		int somaTotalPar = valorPar + valorPar1;
-		
+
 		char v5 = paresSemRepeticao.get(2).charAt(0);
 		char v6 = paresSemRepeticao.get(2).charAt(2);
-		int valorPar2 = Integer.parseInt(paresSemRepeticao.get(2).substring(paresSemRepeticao.get(2).lastIndexOf(':')+1));
+		int valorPar2 = Integer
+				.parseInt(paresSemRepeticao.get(2).substring(paresSemRepeticao.get(2).lastIndexOf(':') + 1));
 		char v7 = paresSemRepeticao.get(3).charAt(0);
 		char v8 = paresSemRepeticao.get(3).charAt(2);
-		int valorPar3 = Integer.parseInt(paresSemRepeticao.get(3).substring(paresSemRepeticao.get(3).lastIndexOf(':')+1));
+		int valorPar3 = Integer
+				.parseInt(paresSemRepeticao.get(3).substring(paresSemRepeticao.get(3).lastIndexOf(':') + 1));
 		int somaTotalPar1 = valorPar2 + valorPar3;
-		
+
 		char v9 = paresSemRepeticao.get(4).charAt(0);
 		char v10 = paresSemRepeticao.get(4).charAt(2);
-		int valorPar4 = Integer.parseInt(paresSemRepeticao.get(4).substring(paresSemRepeticao.get(4).lastIndexOf(':')+1));
+		int valorPar4 = Integer
+				.parseInt(paresSemRepeticao.get(4).substring(paresSemRepeticao.get(4).lastIndexOf(':') + 1));
 		char v11 = paresSemRepeticao.get(5).charAt(0);
 		char v12 = paresSemRepeticao.get(5).charAt(2);
-		int valorPar5 = Integer.parseInt(paresSemRepeticao.get(5).substring(paresSemRepeticao.get(5).lastIndexOf(':')+1));
+		int valorPar5 = Integer
+				.parseInt(paresSemRepeticao.get(5).substring(paresSemRepeticao.get(5).lastIndexOf(':') + 1));
 		int somaTotalPar2 = valorPar4 + valorPar5;
-		
-		if((somaTotalPar < somaTotalPar1 || somaTotalPar == somaTotalPar1) && (somaTotalPar < somaTotalPar2 || somaTotalPar == somaTotalPar2)) {
+
+		if ((somaTotalPar < somaTotalPar1 || somaTotalPar == somaTotalPar1)
+				&& (somaTotalPar < somaTotalPar2 || somaTotalPar == somaTotalPar2)) {
 			vertice1 = g.getVertice(v1);
 			vertice2 = g.getVertice(v2);
 			vertice3 = g.getVertice(v3);
 			vertice4 = g.getVertice(v4);
 			g.insertAresta(vertice1, vertice2, valorPar);
 			g.insertAresta(vertice3, vertice4, valorPar1);
-		}else if((somaTotalPar1 < somaTotalPar || somaTotalPar1 == somaTotalPar) && (somaTotalPar1 < somaTotalPar2 || somaTotalPar1 == somaTotalPar2) ) {
+		} else if ((somaTotalPar1 < somaTotalPar || somaTotalPar1 == somaTotalPar)
+				&& (somaTotalPar1 < somaTotalPar2 || somaTotalPar1 == somaTotalPar2)) {
 			vertice1 = g.getVertice(v5);
 			vertice2 = g.getVertice(v6);
 			vertice3 = g.getVertice(v7);
 			vertice4 = g.getVertice(v8);
 			g.insertAresta(vertice1, vertice2, valorPar2);
 			g.insertAresta(vertice3, vertice4, valorPar3);
-		}else if((somaTotalPar2 < somaTotalPar || somaTotalPar2 == somaTotalPar) && (somaTotalPar2 < somaTotalPar1 || somaTotalPar2 == somaTotalPar1)) {
+		} else if ((somaTotalPar2 < somaTotalPar || somaTotalPar2 == somaTotalPar)
+				&& (somaTotalPar2 < somaTotalPar1 || somaTotalPar2 == somaTotalPar1)) {
 			vertice1 = g.getVertice(v9);
 			vertice2 = g.getVertice(v10);
 			vertice3 = g.getVertice(v11);
@@ -215,6 +242,6 @@ public class Util {
 			g.insertAresta(vertice1, vertice2, valorPar4);
 			g.insertAresta(vertice3, vertice4, valorPar5);
 		}
-		
+
 	}
 }

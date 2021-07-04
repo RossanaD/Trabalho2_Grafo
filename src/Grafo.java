@@ -1,3 +1,5 @@
+/*Christian Trisotto Alegri
+ *Rossana Ariadna Schumann Dullius*/
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,6 +107,7 @@ public class Grafo {
 		e.setV1(null);
 		e.setV2(null);
 		arestas.remove(e);
+		numArestas--;
 	}
 
 
@@ -117,5 +120,15 @@ public class Grafo {
 			vertice.LimpaVertice(vertice2);
 		}
 	}
+	
+	public int getOddVerticesCount() {
+        int oddCount = 0; // O(1)
+        for (Vertice vertice : vertices()) { // O(|V|)
+            if (vertice.getGrau() % 2 == 1) { // O(1)
+                oddCount++; // O(1)
+            }
+        }
+        return oddCount; // O(1)
+    }
 	
 }

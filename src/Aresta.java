@@ -1,3 +1,5 @@
+/*Christian Trisotto Alegri
+ *Rossana Ariadna Schumann Dullius*/
 public class Aresta {
 
 	private Vertice v1;
@@ -5,8 +7,6 @@ public class Aresta {
 	private Vertice v2;
 
 	private Integer peso;
-
-	private String status = Util.UNVISITED;
 
 	public Vertice getV1() {
 		return v1;
@@ -37,11 +37,4 @@ public class Aresta {
 		return "W = " + peso;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
 }

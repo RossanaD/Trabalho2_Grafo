@@ -1,3 +1,5 @@
+/*Christian Trisotto Alegri
+ *Rossana Ariadna Schumann Dullius*/
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +16,6 @@ public class Vertice implements Comparable<Vertice> {
 	private int dist = Integer.MAX_VALUE;
 
 	private Vertice anterior;
-
-	private String status = Util.UNVISITED;
 
 	public Vertice(Integer id, char nome) {
 		this.id = id;
@@ -91,14 +91,6 @@ public class Vertice implements Comparable<Vertice> {
 
 	public int compareTo(Vertice other) {
 		return Double.compare(dist, other.getDist());
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	public int getDist() {
