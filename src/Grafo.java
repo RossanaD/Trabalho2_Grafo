@@ -7,9 +7,9 @@ public class Grafo {
 	private List<Vertice> vertices = new ArrayList<Vertice>();
 	private List<Aresta> arestas = new ArrayList<Aresta>();
 
-	public Vertice getVertice(Integer id) {
+	public Vertice getVertice(char id) {
 		for (Vertice v : vertices) {
-			if (v.getId().equals(id)) {
+			if (v.getName() == id) {
 				return v;
 			}
 		}

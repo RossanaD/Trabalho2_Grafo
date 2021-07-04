@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 
 public class main {
 
@@ -17,51 +15,40 @@ public class main {
 		g.insertVertice(8, 'H');
 		
 		//Vertice a
-		g.insertAresta(g.getVertice(1), g.getVertice(2), 5);
-		g.insertAresta(g.getVertice(1), g.getVertice(8), 4);
+		g.insertAresta(g.getVertice('A'), g.getVertice('B'), 5);
+		g.insertAresta(g.getVertice('A'), g.getVertice('H'), 4);
 		
 		//Vertice b
-		g.insertAresta(g.getVertice(2), g.getVertice(3), 8);
-		g.insertAresta(g.getVertice(2), g.getVertice(7), 10);
+		g.insertAresta(g.getVertice('B'), g.getVertice('C'), 8);
+		g.insertAresta(g.getVertice('B'), g.getVertice('G'), 10);
 		
 		//Vertice c
-		g.insertAresta(g.getVertice(3), g.getVertice(4), 1);
+		g.insertAresta(g.getVertice('C'), g.getVertice('D'), 1);
 		
 		//Vertice d
-		g.insertAresta(g.getVertice(4), g.getVertice(5), 4);
-		g.insertAresta(g.getVertice(4), g.getVertice(6), 2);
+		g.insertAresta(g.getVertice('D'), g.getVertice('E'), 4);
+		g.insertAresta(g.getVertice('D'), g.getVertice('F'), 2);
 		
 		//Vertice e
-		g.insertAresta(g.getVertice(5), g.getVertice(6), 6);
+		g.insertAresta(g.getVertice('E'), g.getVertice('F'), 6);
 		
 		//Vertce f
-		g.insertAresta(g.getVertice(6), g.getVertice(7), 3);
+		g.insertAresta(g.getVertice('F'), g.getVertice('G'), 3);
 		
 		//Vertice g
-		g.insertAresta(g.getVertice(7), g.getVertice(8), 1);
-		
-		
-		List<Vertice> verticesGrauImpar = new ArrayList<Vertice>();
-		List<Aresta> arestas = g.arestas();
-		for (Aresta aresta : arestas) {			
-			Vertice vertice = Grafo.oposto(aresta.getV1(), aresta);
-			if(!verticesGrauImpar.contains(vertice)) {
-				if((vertice.getGrau() % 2 ) != 0) {
-					verticesGrauImpar.add(vertice);
-				}
-			}			
-		}
-		
+		g.insertAresta(g.getVertice('G'), g.getVertice('H'), 1);
 		
 		Util util = new Util();
-		for (Vertice vertice : verticesGrauImpar) {
-			g.limpa();
-			util.dijkstra(vertice);	
-			for (Vertice v : verticesGrauImpar) {
-				System.out.println(v.getName() + ": " + v.getDist());	
-			}
-			System.out.println("==================");
-		}		
+
+		util.Realizadijkstra(g);
+		
+		util.teste(g);
+		
+		//Matriz impares
+		util.ImprimeMatrizImpares();
+		
+		//Matriz D
+		util.ImprimeMatrizD(util.getVerticesGrauImpar(), util.getMatriz());
 		
 	}
 
